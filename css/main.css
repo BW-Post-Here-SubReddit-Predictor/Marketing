@@ -133,36 +133,6 @@ table {
 body {
   font-family: "Poppins", sans-serif;
 }
-body::after {
-  /*This adds a label in the top-left corner that displays the current media query state.*/
-  background: red;
-  color: white;
-  content: "undefined";
-  left: 0;
-  padding: 0.5em 1em;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  z-index: 99;
-}
-@media only screen and (max-width: 529px) {
-  body::after {
-    background: orange;
-    content: "mobile";
-  }
-}
-@media only screen and (min-width: 530px) and (max-width: 949px) {
-  body::after {
-    background: purple;
-    content: "tablet";
-  }
-}
-@media only screen and (min-width: 950px) {
-  body::after {
-    background: green;
-    content: "desktop";
-  }
-}
 .btn {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   text-decoration: none;
@@ -220,6 +190,42 @@ body::after {
   background-color: white;
   color: #ff1001;
 }
+.navbar {
+  position: fixed;
+  text-align: left;
+  top: 100;
+  left: 0;
+  height: 5rem;
+  width: 100%;
+  z-index: 999;
+}
+.navbar__list {
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+@media only screen and (min-width: 950px) {
+  .navbar__list {
+    transform: scale(1, 1);
+  }
+}
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+.navbar a:hover {
+  color: grey;
+  transition: all 300ms ease;
+}
+.navbar__links {
+  background-color: #262626;
+  padding-left: 0.5rem;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-right: 1rem;
+  text-decoration: none;
+}
 @media only screen and (min-width: 950px) {
   .navbar {
     border-bottom: solid 5px white;
@@ -227,20 +233,80 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
   }
   .navbar__list {
+    text-align: right;
     display: flex;
   }
-  .navbar__links {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 5vw;
+}
+#nav-toggle {
+  display: none;
+}
+#nav-toggle:checked ~ nav ul {
+  transform: scale(1, 1);
+}
+#nav-toggle:checked ~ nav ul a {
+  margin-bottom: 1vh;
+  font-size: 1.3rem;
+  opacity: 1;
+  transition: opacity 100 ease-in-out;
+  transition-delay: 250ms;
+}
+.nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  margin-left: 0.5em;
+  align-items: center;
+}
+.nav-toggle-label span,
+.nav-toggle-label span::after,
+.nav-toggle-label span::before {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: black;
+  border-radius: 2px;
+  position: relative;
+}
+@media only screen and (min-width: 950px) {
+  .nav-toggle-label span,
+  .nav-toggle-label span::after,
+  .nav-toggle-label span::before {
+    visibility: hidden;
   }
+}
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+}
+.nav-toggle-label span::after {
+  bottom: 7px;
+}
+.nav-toggle-label span::before {
+  top: 7px;
+}
+.navbar__logo {
+  visibility: hidden;
+}
+@media only screen and (min-width: 950px) {
+  .navbar__logo {
+    visibility: visible;
+  }
+}
+.home__label span,
+.home__label span::before,
+.home__label span::after {
+  background-color: #bba3a3;
+}
+.home__item {
+  margin-bottom: 1vh;
+}
+.home__item a {
+  background-color: #020202;
 }
 .hero {
   background-color: black;
@@ -264,7 +330,7 @@ body::after {
   }
 }
 .hero::before {
-  background-image: url(../reddit_text.png);
+  background-image: url(../images/reddit_text.png);
   background-repeat: repeat;
   background-size: cover;
   content: "Hello";
@@ -347,22 +413,30 @@ body::after {
   }
 }
 .about__header {
-  background-image: linear-gradient(white 50%, #ff4500 50%);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: #ff4500;
   font-size: 2.5rem;
   font-weight: 700;
-  text-align: center;
-  height: 40vh;
+  height: 80vh;
   position: relative;
+  text-align: center;
 }
 .about__header h1 {
-  background-color: white;
+  font-weight: 900;
+  color: white;
+  position: relative;
+  background-color: #ff4500;
   border-radius: 0.5rem;
   display: inline-block;
-  width: 90%;
+  width: 80%;
+}
+@media only screen and (min-width: 950px) {
+  .about__header h1 {
+    padding-bottom: 2rem;
+  }
 }
 .body__wrapper {
   display: grid;
@@ -626,8 +700,8 @@ body::after {
 }
 .about__card:hover .face__front {
   background: #ff0057;
-  box-shadow: -6px 2px 6px black;
   transform: translateY(0);
+  box-shadow: 0 2px 3px #ff4400, 0 2px 4px #fff;
 }
 .about__card:hover .face__front .about__content {
   color: #fff;
@@ -641,10 +715,12 @@ body::after {
   color: white;
 }
 .about__content {
+  color: white;
   width: 100%;
 }
 .about__content h3 {
   background-color: grey;
+  font-size: 1.3rem;
   position: absolute;
   padding-left: 2%;
   width: 100%;
@@ -652,24 +728,29 @@ body::after {
 }
 .about__content a {
   border: 3px solid skyblue;
+  background-color: #6cb6d3;
   border-radius: 5%;
   color: #333;
   display: inline-block;
   font-weight: 900;
   padding: 3%;
   text-decoration: none;
+  text-align: center;
+}
+.about__content a i {
+  font-size: 1.8rem;
 }
 .content__image {
   position: relative;
+  max-width: 100%;
   width: 110%;
-  z-index: -1;
+  overflow: hidden;
+  z-index: -999;
 }
 .face {
   width: 14rem;
   height: 10rem;
   transition: 0.35s;
-}
-@media only screen and (max-width: 529px) {
 }
 .face__front {
   border: 3px white solid;
@@ -682,10 +763,12 @@ body::after {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
   transform: translateY(5rem);
+  z-index: 10;
 }
 .face__front .about__content {
-  opacity: 0.2;
+  opacity: 0.7;
   transition: 0.5s;
 }
 @media only screen and (max-width: 529px) {
@@ -695,24 +778,59 @@ body::after {
 }
 .face__back {
   position: relative;
-  background: #fff;
+  background: #262626;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.8);
   transform: translateY(-5rem);
-  z-index: -1;
 }
 .face__back p {
+  font-size: 1.3rem;
   padding: 1rem;
   margin: 0;
 }
 @media only screen and (max-width: 529px) {
 }
+.about__wrapper {
+  width: 100vw;
+  display: grid;
+  grid-template-areas: "nav nav nav" "header header header" "... cards ..." "footer footer footer";
+  grid-template-columns: 1fr 80% 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: space-around;
+}
+#about__nav {
+  grid-area: nav;
+}
+.about__header {
+  grid-area: header;
+}
 .about__container {
-  width: 100%;
+  background-color: white;
+  grid-area: cards;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
+}
+.about__container::before,
+.about__container::after {
+  content: "";
+  box-shadow: inset 3px 0 3px rgba(0, 0, 0, 0.5);
+  background-color: 0, 0, 0, 0.4;
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 9%;
+  height: 100%;
+  z-index: -5;
+}
+.about__container::after {
+  box-shadow: inset -3px 0 3px rgba(0, 0, 0, 0.5);
+  left: -10%;
+}
+footer {
+  grid-area: footer;
 }
