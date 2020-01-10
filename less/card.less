@@ -1,0 +1,41 @@
+.card {
+  background-color: @reddit--orange;
+  color: white;
+  .flexing(column, grid-start, center);
+  height: 20vh;
+  position: relative;
+  text-align: center;
+  @media @desktop {
+    font-size: 1.3rem;
+    width: 60%;
+  }
+
+  &__icon {
+    display: inline-block;
+    .flexing(row, center, center);
+    // height: 8vh;
+    margin: 0 auto;
+    margin: 3vh 0 1vh;
+
+    width: 100%;
+  }
+
+  &__header {
+    // font-size: 1.5em;
+    // font-weight: 600;
+    letter-spacing: 0.12ch;
+    margin-bottom: 2.5vh;
+  }
+
+  &__header:nth-of-type(2) {
+    margin: 0;
+  }
+  &__content {
+    margin-bottom: 10%;
+    line-height: 2.5vh;
+    padding: 0 3vw;
+    @media @desktop {
+      padding: 0;
+    }
+  }
+}

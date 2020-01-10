@@ -1,0 +1,29 @@
+.btn {
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+// (@width:90%, @bg-color,@font-color,@font-size, @b-radius:2rem)
+.hero__btn {
+  grid-area: button;
+  width: 45%;
+  text-align: center;
+  margin: 0 auto;
+  @media @desktop {
+    display: flex;
+    display: inline-block;
+    align-self: start;
+    justify-self: end;
+    background-color: red;
+    margin: 0;
+  }
+  & .btn {
+    .btn__primary(100%, #ff1001, white, 1.5rem, 0.1rem);
+  }
+}
+.cta__btn {
+  width: 40%;
+
+  & .btn {
+    .btn__primary(100%, #ff1001, white, 1.5rem, 0.1rem);
+  }
+}

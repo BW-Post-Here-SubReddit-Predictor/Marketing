@@ -1,0 +1,137 @@
+.hero {
+  background-color: black;
+  color: white;
+  // grid layout for mobile
+  display: grid;
+  grid-template-areas:
+    "logo"
+    "title"
+    "button";
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+  position: relative;
+  opacity: 0.95;
+  text-align: center;
+  //   Grid layour for desktop view
+  @media @desktop {
+    height: 100vh;
+    grid-template-columns: 2fr 50% 1fr;
+    grid-template-rows: 1fr 40% 40%;
+    grid-template-areas:
+      "... ... ..."
+      "... title ..."
+      "... button ...";
+    justify-content: flex-end;
+  }
+
+  //   The background image of text with opacity applied
+  &::before {
+    background-image: url(../reddit_text.png);
+    background-repeat: repeat;
+    background-size: cover;
+    content: "Hello";
+    // background-color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 65vh;
+    opacity: 0.03;
+    width: 100%;
+    z-index: -1;
+    @media @desktop {
+      height: 100vh;
+    }
+  }
+
+  //   creates the large orange stripe from top left
+  &::after {
+    visibility: hidden;
+    @media @desktop {
+      visibility: visible;
+      content: "";
+      width: 50%;
+      height: 90vh;
+      background-image: linear-gradient(
+        to bottom left,
+        rgba(0, 0, 0, 0) 50%,
+        @reddit--orange 50%
+      );
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
+  //   Title section before and after create the orange doodad on desktop view
+  &__title {
+    grid-area: title;
+    font-weight: 900;
+    font-size: 2.5rem;
+    width: 90vw;
+    @media @desktop {
+      //   postion: relative;
+      text-align: right;
+      font-size: 4vw;
+      &::after,
+      &::before {
+        content: "";
+        border-top: 5px solid @reddit--orange;
+        position: absolute;
+        bottom: 60vh;
+        right: 0;
+
+        width: 15%;
+      }
+      &::before {
+        transform: rotate(90deg);
+        right: 11vw;
+        top: 39vh;
+        width: 8%;
+      }
+    }
+    // The word Reddit in hero__title
+    & span {
+      color: @reddit--orange;
+    }
+  }
+  &__btn {
+    grid-area: button;
+  }
+}
+
+// Post here logo on mobile views
+.logo--mobile {
+  @media @desktop {
+    display: none;
+  }
+}
+// Reddit alien in bottom left on desktop views
+.logo--desktop {
+  display: none;
+  @media @desktop {
+    display: inline-block;
+    position: absolute;
+    bottom: 0.05%;
+    left: 0.05%;
+    width: 30%;
+    z-index: 950;
+  }
+}
+
+/////////////////////about header styles
+
+.about__header {
+  background-image: linear-gradient(white 50%, @reddit--orange 50%);
+  .flexing(row, center, center);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  height: 40vh;
+  position: relative;
+  & h1 {
+    background-color: white;
+    border-radius: 0.5rem;
+    display: inline-block;
+    width: 90%;
+  }
+}
